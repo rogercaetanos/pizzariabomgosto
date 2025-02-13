@@ -10,7 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Transient;
 
 @Entity
-public class Produto {
+public class Categoria {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,27 +19,12 @@ public class Produto {
 	private String nome;
 	@Column(nullable = true,length = 250)
 	private String descricao;
-	@Column(nullable = true,length = 45)
-	private String tipo;
-	@Column(nullable = true)
-	private int quantidadeEstoque;
-	@Column(nullable = true, columnDefinition = "DECIMAL(5,2)")
-	private double precoVenda;
-	@Column(nullable = true, columnDefinition = "DECIMAL(5,2)")
-	private double precoCompra;
 	private boolean codStatus;
-	
-	// atributos de apoio
-	
-	// @Transient : Anotação para os atributos que não reprentam colunas no banco de dados
 	
 	@Transient 
 	private String mensagemErro = "";
 	@Transient
 	private boolean isValid = true;
-	
-	// Set e Get
-	
 	public Long getId() {
 		return id;
 	}
@@ -58,30 +43,6 @@ public class Produto {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public String getTipo() {
-		return tipo;
-	}
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-	public int getQuantidadeEstoque() {
-		return quantidadeEstoque;
-	}
-	public void setQuantidadeEstoque(int quantidadeEstoque) {
-		this.quantidadeEstoque = quantidadeEstoque;
-	}
-	public double getPrecoVenda() {
-		return precoVenda;
-	}
-	public void setPrecoVenda(double precoVenda) {
-		this.precoVenda = precoVenda;
-	}
-	public double getPrecoCompra() {
-		return precoCompra;
-	}
-	public void setPrecoCompra(double precoCompra) {
-		this.precoCompra = precoCompra;
-	}
 	public boolean isCodStatus() {
 		return codStatus;
 	}
@@ -91,8 +52,6 @@ public class Produto {
 	public String getMensagemErro() {
 		return mensagemErro;
 	}
-	
-	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -105,32 +64,17 @@ public class Produto {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Produto other = (Produto) obj;
+		Categoria other = (Categoria) obj;
 		return Objects.equals(id, other.id);
 	}
 	
-	public boolean validarProduto() {
+	public boolean validarCategoria() {
 		if(nome == null || nome.isEmpty()) {
-			mensagemErro += "O nome do produto é obrigatório:";
+			mensagemErro += "O nome da categoria é obrigatório:";
 			isValid = false;
 		}
-		if(precoCompra < 0) {
-			precoCompra = 0;
-			mensagemErro += "O preço de compra do produto deve ser maior que zero:";
-			isValid = false;
-		}
-		if(precoVenda < 0) {
-			precoVenda = 0;
-			mensagemErro += "O preço de venda do produto deve ser maior que zero:";
-			isValid = false;
-		}
-		
+	
 		return isValid;
 	}
-	
-	
-
-	
-
 	
 }
