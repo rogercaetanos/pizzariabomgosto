@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -42,6 +44,7 @@ public class Categoria {
 	// Além do "LAZY", temos: EAGER -> Os dados da classe filha é carregada no momento que eu carrego a classe pai
 	
    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, fetch = FetchType.LAZY)	
+   @JsonIgnore
    private List<Produto> produtos = new ArrayList<>();
 	
 	
@@ -73,6 +76,13 @@ public class Categoria {
 	}
 	public void setCodStatus(boolean codStatus) {
 		this.codStatus = codStatus;
+	}
+	
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
 	}
 	public String getMensagemErro() {
 		return mensagemErro;

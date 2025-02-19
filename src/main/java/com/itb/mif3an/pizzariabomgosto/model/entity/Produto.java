@@ -33,6 +33,8 @@ public class Produto {
 	private double precoCompra;
 	private boolean codStatus;
 	
+    // @ManyToOne: Muitos para Um ex: Muitos produtos para uma categoria
+	
 	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinColumn(name= "categoria_id", referencedColumnName = "id", nullable = true)
 	private Categoria categoria;
@@ -95,6 +97,13 @@ public class Produto {
 	}
 	public void setCodStatus(boolean codStatus) {
 		this.codStatus = codStatus;
+	}
+	
+	public Categoria getCategoria() {
+		return categoria;
+	}
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 	public String getMensagemErro() {
 		return mensagemErro;
