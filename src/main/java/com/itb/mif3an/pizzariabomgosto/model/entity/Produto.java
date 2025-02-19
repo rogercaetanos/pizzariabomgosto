@@ -2,11 +2,15 @@ package com.itb.mif3an.pizzariabomgosto.model.entity;
 
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Transient;
 
 @Entity
@@ -28,6 +32,10 @@ public class Produto {
 	@Column(nullable = true, columnDefinition = "DECIMAL(5,2)")
 	private double precoCompra;
 	private boolean codStatus;
+	
+	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@JoinColumn(name= "categoria_id", referencedColumnName = "id", nullable = true)
+	private Categoria categoria;
 	
 	// atributos de apoio
 	
