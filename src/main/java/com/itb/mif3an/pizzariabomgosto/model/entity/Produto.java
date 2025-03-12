@@ -1,6 +1,10 @@
 package com.itb.mif3an.pizzariabomgosto.model.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -11,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 
 @Entity
@@ -38,6 +43,11 @@ public class Produto {
 	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinColumn(name= "categoria_id", referencedColumnName = "id", nullable = true)
 	private Categoria categoria;
+	
+	
+	@OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<ItemPedido> intensPedido = new ArrayList<>();
 	
 	// atributos de apoio
 	
@@ -104,6 +114,15 @@ public class Produto {
 	}
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+	
+	
+	
+	public List<ItemPedido> getIntensPedido() {
+		return intensPedido;
+	}
+	public void setIntensPedido(List<ItemPedido> intensPedido) {
+		this.intensPedido = intensPedido;
 	}
 	public String getMensagemErro() {
 		return mensagemErro;
