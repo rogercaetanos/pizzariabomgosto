@@ -40,8 +40,7 @@ public class Usuario {
     private String cidade;
 	@Column(nullable = true,length = 2)
     private String uf;
-	@Column(nullable = true,length = 45)
-	private String tipoUsuario;
+
     private boolean codStatus;
     
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -114,12 +113,6 @@ public class Usuario {
 	}
 	public void setUf(String uf) {
 		this.uf = uf;
-	}
-	public String getTipoUsuario() {
-		return tipoUsuario;
-	}
-	public void setTipoUsuario(String tipoUsuario) {
-		this.tipoUsuario = tipoUsuario;
 	}
 	public boolean isCodStatus() {
 		return codStatus;
